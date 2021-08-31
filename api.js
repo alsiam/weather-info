@@ -15,8 +15,12 @@ const loadTemparatureData = () => {
 }
 const displayTemparature = (data) => {
     console.log(data);
+    const weatherIcon = document.getElementById('weather-icon');
     const cityName = document.getElementById('city-name');
     const celciusNumber = document.getElementById('celcius-number');
+    const getIcon= data.weather[0].icon;
     cityName.innerText = data.name;
     celciusNumber.innerText = ((data.main.temp) - 273.15).toFixed(2);
+    weatherIcon.setAttribute('src',`http://openweathermap.org/img/wn/${getIcon}@2x.png`);
+
 }
