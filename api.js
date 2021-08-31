@@ -15,12 +15,29 @@ const loadTemparatureData = () => {
 }
 const displayTemparature = (data) => {
     console.log(data);
-    const weatherIcon = document.getElementById('weather-icon');
-    const cityName = document.getElementById('city-name');
-    const celciusNumber = document.getElementById('celcius-number');
-    const getIcon= data.weather[0].icon;
-    cityName.innerText = data.name;
-    celciusNumber.innerText = ((data.main.temp) - 273.15).toFixed(2);
-    weatherIcon.setAttribute('src',`http://openweathermap.org/img/wn/${getIcon}@2x.png`);
+
+    // Getting Id
+    const weatherStatus = document.getElementById('weather-status');
+    const weatherInfo = document.createElement('div');
+
+    // Getting Time
+    const sunriseCode = data.sys.sunrise;
+    const sunriseTime = new Date(sunriseCode * 1000)
+    const sunsetCode = data.sys.sunset;
+    const sunsetTime = new Date(sunsetCode * 1000)
+
+
+    // Geting Weather Info
+    weatherInfo.innerHTML=`
+           
+    <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="smart weather info icon">
+    <h1 id="city-name">${data.name}</h1>
+    <h3><span id="celcius-number">${((data.main.temp) - 273.15).toFixed(2)}</span>&deg;C</h3>
+    <h1 class="lead">Sunrise : ${sunriseTime}</h1>
+    
+    `;
+
+    // Appening child
+    weatherStatus.appendChild(weatherInfo);
 
 }
